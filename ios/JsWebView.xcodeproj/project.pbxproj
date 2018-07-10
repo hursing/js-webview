@@ -13,6 +13,8 @@
 		A8345C9020F487A2002BB6AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8345C8F20F487A2002BB6AE /* Assets.xcassets */; };
 		A8345C9320F487A2002BB6AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8345C9120F487A2002BB6AE /* LaunchScreen.storyboard */; };
 		A8345C9620F487A2002BB6AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A8345C9520F487A2002BB6AE /* main.m */; };
+		A8345CA120F48F2A002BB6AE /* WebViewInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = A8345CA020F48F2A002BB6AE /* WebViewInjector.m */; };
+		A8345CA320F49319002BB6AE /* test-framework.html in Resources */ = {isa = PBXBuildFile; fileRef = A8345CA220F49319002BB6AE /* test-framework.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,9 @@
 		A8345C9220F487A2002BB6AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A8345C9420F487A2002BB6AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8345C9520F487A2002BB6AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A8345C9F20F48F2A002BB6AE /* WebViewInjector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewInjector.h; sourceTree = "<group>"; };
+		A8345CA020F48F2A002BB6AE /* WebViewInjector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewInjector.m; sourceTree = "<group>"; };
+		A8345CA220F49319002BB6AE /* test-framework.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "test-framework.html"; path = "../../android/app/src/main/assets/test-framework.html"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +63,8 @@
 		A8345C8520F487A1002BB6AE /* JsWebView */ = {
 			isa = PBXGroup;
 			children = (
+				A8345CA220F49319002BB6AE /* test-framework.html */,
+				A8345C9E20F48E0E002BB6AE /* JsFramework */,
 				A8345C8620F487A1002BB6AE /* AppDelegate.h */,
 				A8345C8720F487A1002BB6AE /* AppDelegate.m */,
 				A8345C8920F487A1002BB6AE /* ViewController.h */,
@@ -69,6 +76,15 @@
 				A8345C9520F487A2002BB6AE /* main.m */,
 			);
 			path = JsWebView;
+			sourceTree = "<group>";
+		};
+		A8345C9E20F48E0E002BB6AE /* JsFramework */ = {
+			isa = PBXGroup;
+			children = (
+				A8345C9F20F48F2A002BB6AE /* WebViewInjector.h */,
+				A8345CA020F48F2A002BB6AE /* WebViewInjector.m */,
+			);
+			path = JsFramework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8345C9320F487A2002BB6AE /* LaunchScreen.storyboard in Resources */,
+				A8345CA320F49319002BB6AE /* test-framework.html in Resources */,
 				A8345C9020F487A2002BB6AE /* Assets.xcassets in Resources */,
 				A8345C8E20F487A1002BB6AE /* Main.storyboard in Resources */,
 			);
@@ -144,6 +161,7 @@
 				A8345C8B20F487A1002BB6AE /* ViewController.m in Sources */,
 				A8345C9620F487A2002BB6AE /* main.m in Sources */,
 				A8345C8820F487A1002BB6AE /* AppDelegate.m in Sources */,
+				A8345CA120F48F2A002BB6AE /* WebViewInjector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
