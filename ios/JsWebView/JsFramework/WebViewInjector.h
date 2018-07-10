@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
-@interface WebViewInjector : NSObject
+@interface WebViewInjector : NSObject <WKScriptMessageHandler>
 
-- (void)injectToWebView:(UIWebView *)webView;
+- (void)injectToWebView:(WKWebView *)webView;
 
 @end

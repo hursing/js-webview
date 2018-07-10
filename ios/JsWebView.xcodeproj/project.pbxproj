@@ -15,6 +15,8 @@
 		A8345C9620F487A2002BB6AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A8345C9520F487A2002BB6AE /* main.m */; };
 		A8345CA120F48F2A002BB6AE /* WebViewInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = A8345CA020F48F2A002BB6AE /* WebViewInjector.m */; };
 		A8345CA320F49319002BB6AE /* test-framework.html in Resources */ = {isa = PBXBuildFile; fileRef = A8345CA220F49319002BB6AE /* test-framework.html */; };
+		A8345CA620F4AE94002BB6AE /* JsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A8345CA520F4AE94002BB6AE /* JsHandler.m */; };
+		A8345CA920F4AFD1002BB6AE /* GetIpHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A8345CA820F4AFD1002BB6AE /* GetIpHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,10 @@
 		A8345C9F20F48F2A002BB6AE /* WebViewInjector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewInjector.h; sourceTree = "<group>"; };
 		A8345CA020F48F2A002BB6AE /* WebViewInjector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewInjector.m; sourceTree = "<group>"; };
 		A8345CA220F49319002BB6AE /* test-framework.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "test-framework.html"; path = "../../android/app/src/main/assets/test-framework.html"; sourceTree = "<group>"; };
+		A8345CA420F4AE94002BB6AE /* JsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsHandler.h; sourceTree = "<group>"; };
+		A8345CA520F4AE94002BB6AE /* JsHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JsHandler.m; sourceTree = "<group>"; };
+		A8345CA720F4AFD1002BB6AE /* GetIpHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetIpHandler.h; sourceTree = "<group>"; };
+		A8345CA820F4AFD1002BB6AE /* GetIpHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetIpHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,10 @@
 			children = (
 				A8345C9F20F48F2A002BB6AE /* WebViewInjector.h */,
 				A8345CA020F48F2A002BB6AE /* WebViewInjector.m */,
+				A8345CA420F4AE94002BB6AE /* JsHandler.h */,
+				A8345CA520F4AE94002BB6AE /* JsHandler.m */,
+				A8345CA720F4AFD1002BB6AE /* GetIpHandler.h */,
+				A8345CA820F4AFD1002BB6AE /* GetIpHandler.m */,
 			);
 			path = JsFramework;
 			sourceTree = "<group>";
@@ -160,6 +170,8 @@
 			files = (
 				A8345C8B20F487A1002BB6AE /* ViewController.m in Sources */,
 				A8345C9620F487A2002BB6AE /* main.m in Sources */,
+				A8345CA920F4AFD1002BB6AE /* GetIpHandler.m in Sources */,
+				A8345CA620F4AE94002BB6AE /* JsHandler.m in Sources */,
 				A8345C8820F487A1002BB6AE /* AppDelegate.m in Sources */,
 				A8345CA120F48F2A002BB6AE /* WebViewInjector.m in Sources */,
 			);

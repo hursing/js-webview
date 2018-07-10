@@ -7,10 +7,13 @@
 //
 
 #import "ViewController.h"
+#import <WebKit/WebKit.h>
+#import "WebViewInjector.h"
 
 @interface ViewController ()
 
-@property (nonatomic) UIWebView *webView;
+@property (nonatomic) WKWebView *webView;
+@property (nonatomic) WebViewInjector *injector;
 
 @end
 
@@ -18,9 +21,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    self.webView = [[UIWebView alloc] init];
-    self.webView.frame = self.view.bounds;
+    
+    self.injector = [[WebViewInjector alloc] init];
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    WKUserContentController *controller = [[WKUserContentController alloc] init];
+    [controller addScriptMessageHandler:self.injector name:@"liuhxJsSdk"];
+    config.userContentController = controller;
+    self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
+    [self.injector injectToWebView:self.webView];
     [self.view addSubview:self.webView];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test-framework" ofType:@"html"];
@@ -34,6 +42,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end
