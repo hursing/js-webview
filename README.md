@@ -111,4 +111,111 @@ iOS和android的设计是一致的，只是使用语言和api不同。思路如�
   - 统管所有的`handler`实例
   - 接收js传递过来的数据，接收到后，按照action，分派数据给对应的`handler`来处理
 
-## 代码
+## 客户端的实现
+### ios的核心代码：
+```objective-c
+// ViewController.m
+self.injector = [[WebViewInjector alloc] init];
+WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+WKUserContentController *controller = [[WKUserContentController alloc] init];
+[controller addScriptMessageHandler:self.injector name:@"liuhxJsFramework"];
+config.userContentController = controller;
+self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
+[self.injector injectToWebView:self.webView];
+[self.view addSubview:self.webView];
+
+// WebViewInjector.m
+#pragma mark - WKScriptMessageHandler methods
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    NSDictionary *body = message.body;
+    if (![body isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    NSString *action = body[@"action"];
+    id<JsHandler> handler = s_jsHandlers[action];
+    if (handler) {
+        [handler handleJsFromWebView:self.webView info:body];
+    }
+}
+
+// JsHandler.m
+void invokeCallback(WKWebView *webView, NSDictionary *fromJs, NSMutableDictionary *toJs) {
+    NSString *callback = fromJs[@"callback"];
+    if (!callback) {
+        return;
+    }
+    toJs[@"id"] = fromJs[@"id"];
+    toJs[@"action"] = fromJs[@"action"];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:toJs options:0 error:nil];
+    NSString *resultString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *js = [NSString stringWithFormat:@"%@(%@)", callback, resultString];
+    [webView evaluateJavaScript:js completionHandler:nil];
+}
+```
+
+### android的核心代码
+```java
+// MainActivity.java
+mInjector = new WebViewInjector();
+mInjector.injectToWebView(mWebView);
+
+// WebViewInjector.java
+@SuppressLint("SetJavaScriptEnabled")
+public void injectToWebView(WebView webView) {
+    mWebView = webView;
+    webView.getSettings().setJavaScriptEnabled(true);
+    webView.addJavascriptInterface(this, "liuhxJsFramework");
+}
+
+@JavascriptInterface
+public void postMessage(String jsonString) {
+    try {
+        // 如果有需要，可以使用GSON或fastjson转换成bean
+        JSONObject object = new JSONObject(jsonString);
+        String action = object.getString("action");
+        JsHandler handler = sHandlerMap.get(action);
+        if (handler != null) {
+            handler.handleJs(mWebView, object);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+static void invokeCallback(final WebView webView, JSONObject fromJs, JSONObject toJs) {
+    String callback;
+    try {
+        callback = fromJs.getString("callback");
+        if (callback.isEmpty()) {
+            return;
+        }
+        toJs.put(sKeyId, fromJs.getString(sKeyId));
+        toJs.put(sKeyAction, fromJs.getString(sKeyAction));
+    } catch (Exception e) {
+        e.printStackTrace();
+        return;
+    }
+    final String url = "javascript:" + callback + "(" + toJs.toString() + ")";
+
+    webView.post(new Runnable() {
+        @Override
+        public void run() {
+            webView.loadUrl(url);
+        }
+    });
+}
+```
+
+## 完整代码
+请查看 https://github.com/hursing/js-webview
+
+说明
+- ios和android各自有demo工程，请使用xcode和android studio打开
+- demo工程加载的是本地网页`test-framework.html`
+- 两个示例：获取ip和获取程序包名
+
+ios截图：
+![ios](img/ios.png)
+
+android截图：
+![android](img/android.png)
