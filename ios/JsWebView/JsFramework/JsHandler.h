@@ -16,4 +16,4 @@
 
 @end
 
-extern void invokeCallback(WKWebView *webView, NSString *callback, NSDictionary *result);
+extern void invokeCallback(WKWebView *webView, NSDictionary *fromJs, NSMutableDictionary *toJs);

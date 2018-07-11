@@ -25,15 +25,15 @@
     self.injector = [[WebViewInjector alloc] init];
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     WKUserContentController *controller = [[WKUserContentController alloc] init];
-    [controller addScriptMessageHandler:self.injector name:@"liuhxJsSdk"];
+    [controller addScriptMessageHandler:self.injector name:@"liuhxJsFramework"];
     config.userContentController = controller;
     self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
     [self.injector injectToWebView:self.webView];
     [self.view addSubview:self.webView];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test-framework" ofType:@"html"];
-    NSURL* url = [NSURL fileURLWithPath:path];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
 }
 

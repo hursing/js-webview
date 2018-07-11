@@ -18,6 +18,9 @@ public class WebViewInjector {
 
     private static final Map<String, JsHandler> sHandlerMap = new HashMap<>(10);
 
+    private static final String sKeyId = "id";
+    private static final String sKeyAction = "action";
+
     static {
         addHandler(new GetIpHandler());
         addHandler(new GetStorageInfoHandler());
@@ -35,11 +38,11 @@ public class WebViewInjector {
     public void injectToWebView(WebView webView) {
         mWebView = webView;
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.addJavascriptInterface(this, "liuhxJsSdk");
+        webView.addJavascriptInterface(this, "liuhxJsFramework");
     }
 
     @JavascriptInterface
-    public void invoke(String jsonString) {
+    public void postMessage(String jsonString) {
         try {
             // 如果有需要，可以使用GSON或fastjson转换成bean
             JSONObject object = new JSONObject(jsonString);
@@ -53,8 +56,20 @@ public class WebViewInjector {
         }
     }
 
-    static void invokeCallback(final WebView webView, String callback, String result) {
-        final String url = "javascript:" + callback + "(" + result.toString() + ")";
+    static void invokeCallback(final WebView webView, JSONObject fromJs, JSONObject toJs) {
+        String callback;
+        try {
+            callback = fromJs.getString("callback");
+            if (callback.isEmpty()) {
+                return;
+            }
+            toJs.put(sKeyId, fromJs.getString(sKeyId));
+            toJs.put(sKeyAction, fromJs.getString(sKeyAction));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        final String url = "javascript:" + callback + "(" + toJs.toString() + ")";
 
         webView.post(new Runnable() {
             @Override
