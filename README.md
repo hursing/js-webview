@@ -4,7 +4,7 @@
 现在最新的xcode都只支持iOS8.0以上的版本了，所以iOS应该直接使用性能高、功能多的WKWebView接口。UIWebView的注入对象方式需要依赖KVC，且有坑，不建议使用。本文都以WKWebView的接口来设计。
 
 数据从native传递到js只有一种方法:
-- ios是`[webView evaluateJavaScript:@"some-js-code" completionHandler:nil]`,
+- ios是`[webView evaluateJavaScript:@"some-js-code" completionHandler:nil]`
 - android是`webView.loadUrl("javascript:some-js-code")`
 
 iOS和Android都使用注入对象的方式给js调用，不通过`alert`等方式来从js传递信息给native。不是不行，而是不够优雅，也不够方便。
@@ -34,7 +34,7 @@ WebView传过来的也是个json对象:
   "action": "action_name",
   "id": "random_value"
   "result": "ok"
-  "data": {}  // optional
+  "data": {...}  // optional
 }
 ```
 - action：与传给WebView的一致。如果各种操作都用同一个回调函数，则可以此区分是哪个操作。
@@ -99,11 +99,11 @@ function callNative(object) {
 }
 ```
 
-完整代码放在 https://github.com/hursing/js-webview/blob/master/android/app/src/main/assets/test-framework.html
+完整的js示例代码放在 https://github.com/hursing/js-webview/blob/master/android/app/src/main/assets/test-framework.html
 
 ## native的设计
 iOS和android的设计是一致的，只是使用语言和api不同。思路如下：
-1. 数据协议中的每种`action`都有独立的`handler`来负责处理和回复。为此设计一个接口（ios的protocol和java的interface）来表示它，每种`action`都是它的子类。它有2个职责：
+1. 数据协议中的每种`action`都有独立的`handler`来负责处理和回复。为此设计一个接口（ios的protocol和java的interface）来表示它，每添加一种`action`就是多一个它的子类。它有2个职责：
   - 声明自己负责的`action`名
   - 得到该`action`相关的整个json对象，按照实际需求做处理，如需要，生成结果json对象，再通过WebView回复给js。
 2. 使用一个类`WebViewInjector`来管理所有跟注入有关的逻辑，它的实例的生命周期和WebView几乎相同，并单向依赖WebView。具体职责是：
@@ -209,7 +209,7 @@ static void invokeCallback(final WebView webView, JSONObject fromJs, JSONObject 
 ## 完整代码
 请查看 https://github.com/hursing/js-webview
 
-说明
+说明：
 - ios和android各自有demo工程，请使用xcode和android studio打开
 - demo工程加载的是本地网页`test-framework.html`
 - 两个示例：获取ip和获取程序包名
