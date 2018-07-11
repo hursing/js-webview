@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * @date 2018/7/10.
  */
 
-public class GetIpHandler extends JsHandler {
+public class GetIpHandler implements JsHandler {
     @Override
     public String action() {
         return "getIp";
@@ -23,6 +23,7 @@ public class GetIpHandler extends JsHandler {
         try {
             result.put("id", object.getString("id"));
             result.put("action", action());
+            result.put("result", "ok");
             JSONObject data = new JSONObject();
             data.put("ip", "192.168.0.1");
             result.put("data", data);
@@ -31,7 +32,7 @@ public class GetIpHandler extends JsHandler {
             e.printStackTrace();
         }
         if (callback != null) {
-            invokeCallback(webView, callback, result.toString());
+            WebViewInjector.invokeCallback(webView, callback, result.toString());
         }
     }
 }

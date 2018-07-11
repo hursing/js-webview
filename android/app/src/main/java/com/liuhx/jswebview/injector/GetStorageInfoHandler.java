@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * @date 2018/7/10.
  */
 
-public class GetStorageInfoHandler extends JsHandler {
+public class GetStorageInfoHandler implements JsHandler {
     @Override
     public String action() {
         return "getStorageInfo";

@@ -15,7 +15,10 @@
        "data": {}  // optional
      }
      action：操作名称，取名应该能反映其意义，例如getIp（获取ip地址）
-     id：这次调用接口的id，因为交互是异步的，对同一个接口调用
+     id：这次调用接口的id，因为交互是异步的，对同一个接口调用多次时，以id来区分是哪一次
+         id由js自己定义保证唯一即可，简单的做法是使用`Math.random()`
+     callback：操作完成后的回调函数名字
+     data：可选，某些操作才需要。即使只有一项数据，也应放到字典里由key来标识
      */
     function doGetIp() {
       var info = {
@@ -27,25 +30,32 @@
     }
 
     /*
-     result的结构:
+     WebView传过来的数据结构:
      {
        "action": "getInfo",
        "id": "0.123123"
-       "result": 1
+       "result": "ok"
        "data": {}  // optional
      }
+     action：操作名称
+     id：与传给WebView的id一致
+     result：操作结果。如果是ok，则成功，如果不是ok，则为错误信息
+     data：操作结果对应的数据，某些操作才有。即使只有一项数据，也应放到字典里由key来标识
      */
-    function getIpCallback(result) {
-      document.getElementById('ip_result').innerHTML = result.data.ip || '获取ip失败';
+    function getIpCallback(object) {
+      if (object.result === 'ok') {
+        document.getElementById('ip_result').innerHTML = object.data.ip;
+      } else {
+        document.getElementById('ip_result').innerHTML = object.result;
+      }
     }
 
-    /*
-      
-    */
     function callNative(object) {
       if (window.liuhxJsSdk) {
+        // Android
         window.liuhxJsSdk.invoke(JSON.stringify(object))
       } else if ((window.webkit && window.webkit.messageHandlers.liuhxJsSdk)) {
+        // iOS WKWebView
         window.webkit.messageHandlers.liuhxJsSdk.postMessage(object)
       } else {
         alert("此功能需要在WebView中使用！")

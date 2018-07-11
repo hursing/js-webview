@@ -15,8 +15,13 @@
 }
 
 - (void)handleJsFromWebView:(WKWebView *)webView info:(NSDictionary *)info {
+    NSString *idString = info[@"id"];
     NSString *callback = info[@"callback"];
-    NSDictionary *result = @{@"data": @{@"ip": @"102.12312.12312.123"}};
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithCapacity:4];
+    result[@"id"] = idString;
+    result[@"action"] = [self action];
+    result[@"result"] = @"ok";
+    result[@"data"] = @{@"ip": @"192.168.1.1"};
     invokeCallback(webView, callback, result);
 }
 

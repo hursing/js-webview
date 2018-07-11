@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * @date 2018/7/10.
  */
 
-public class SendDataHandler extends JsHandler {
+public class SendDataHandler implements JsHandler {
     @Override
     public String action() {
         return "sendData";

@@ -52,4 +52,15 @@ public class WebViewInjector {
             e.printStackTrace();
         }
     }
+
+    static void invokeCallback(final WebView webView, String callback, String result) {
+        final String url = "javascript:" + callback + "(" + result.toString() + ")";
+
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl(url);
+            }
+        });
+    }
 }

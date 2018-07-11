@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * @date 2018/7/10.
  */
 
-public class SaveDataHandler extends JsHandler {
+public class SaveDataHandler implements JsHandler {
     @Override
     public String action() {
         return "saveData";
