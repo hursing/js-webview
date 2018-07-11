@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "JsHandler.h"
 
-@interface GetStorageInfoHandler : NSObject <JsHandler>
+@interface GetPackageNameHandler : NSObject <JsHandler>
 
 @end

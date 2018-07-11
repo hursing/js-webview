@@ -7,8 +7,9 @@
 //
 
 #import "WebViewInjector.h"
-#import "JsHandler.h"
+
 #import "GetIpHandler.h"
+#import "GetPackageNameHandler.h"
 
 @interface WebViewInjector ()
 
@@ -22,7 +23,9 @@
 - (void)injectToWebView:(WKWebView *)webView {
     self.webView = webView;
     self.jsHandlers = [[NSMutableDictionary alloc] initWithCapacity:10];
-    [self addJsHandler:[GetIpHandler new]];
+    // 每种action的handler都有自己的handler
+    [self addJsHandler:GetIpHandler.new];
+    [self addJsHandler:GetPackageNameHandler.new];
 }
 
 - (void)addJsHandler:(id<JsHandler>)handler {

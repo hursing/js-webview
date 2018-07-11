@@ -64,6 +64,21 @@
     }
   </script>
   <script type="text/javascript">
+    function doGetPackageName() {
+      var info = {
+        "action": "getPackageName",
+        "id": Math.random().toString(),
+        "callback": "getPackageNameCallback"
+      }
+      callNative(info)
+    }
+    function getPackageNameCallback(object) {
+      if (object.result === 'ok') {
+        document.getElementById('package_result').innerHTML = object.data.name;
+      } else {
+        document.getElementById('package_result').innerHTML = object.result;
+      }
+    }
   </script>
 </head>
 
@@ -72,9 +87,9 @@
   <br>
   <p id="ip_result">请点击获取ip，这里将显示结果</p>
 
-  <input type="button" onclick="doGetStorageInfo()" value="获取内存信息" />
+  <input type="button" onclick="doGetPackageName()" value="获取程序包名" />
   <br>
-  <p id="storage_result">请点击获取内存信息，这里将显示结果</p>
+  <p id="package_result">请点击获取获取程序包名，这里将显示结果</p>
 </body>
 
 </html>

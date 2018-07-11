@@ -22,10 +22,9 @@ public class WebViewInjector {
     private static final String sKeyAction = "action";
 
     static {
+        // 每种action的handler都有自己的handler
         addHandler(new GetIpHandler());
-        addHandler(new GetStorageInfoHandler());
-        addHandler(new SaveDataHandler());
-        addHandler(new SendDataHandler());
+        addHandler(new GetPackageNameHandler());
     }
 
     private static void addHandler(JsHandler handler) {
