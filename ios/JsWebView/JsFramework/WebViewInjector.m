@@ -10,6 +10,7 @@
 
 #import "GetIpHandler.h"
 #import "GetPackageNameHandler.h"
+#import "DefaultHandler.h"
 
 NSMutableDictionary<NSString*, id<JsHandler>> *s_jsHandlers = nil;
 
@@ -47,9 +48,10 @@ void initHandlersIfNeed() {
     }
     NSString *action = body[@"action"];
     id<JsHandler> handler = s_jsHandlers[action];
-    if (handler) {
-        [handler handleJsFromWebView:self.webView info:body];
+    if (!handler) {
+        handler = [DefaultHandler sharedInstance];
     }
+    [handler handleJsFromWebView:self.webView info:body];
 }
 
 @end

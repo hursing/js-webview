@@ -17,6 +17,7 @@ import java.util.Map;
 public class WebViewInjector {
 
     private static final Map<String, JsHandler> sHandlerMap = new HashMap<>(10);
+    private static final JsHandler sDefaultHandler = new DefaultHandler();
 
     private static final String sKeyId = "id";
     private static final String sKeyAction = "action";
@@ -47,9 +48,10 @@ public class WebViewInjector {
             JSONObject object = new JSONObject(jsonString);
             String action = object.getString("action");
             JsHandler handler = sHandlerMap.get(action);
-            if (handler != null) {
-                handler.handleJs(mWebView, object);
+            if (handler == null) {
+                handler = sDefaultHandler;
             }
+            handler.handleJs(mWebView, object);
         } catch (Exception e) {
             e.printStackTrace();
         }

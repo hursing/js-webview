@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A831E66A20F6F7A8007029F1 /* DefaultHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A831E66920F6F7A8007029F1 /* DefaultHandler.m */; };
 		A8345C8820F487A1002BB6AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A8345C8720F487A1002BB6AE /* AppDelegate.m */; };
 		A8345C8B20F487A1002BB6AE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8345C8A20F487A1002BB6AE /* ViewController.m */; };
 		A8345C8E20F487A1002BB6AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8345C8C20F487A1002BB6AE /* Main.storyboard */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A831E66820F6F7A8007029F1 /* DefaultHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultHandler.h; sourceTree = "<group>"; };
+		A831E66920F6F7A8007029F1 /* DefaultHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultHandler.m; sourceTree = "<group>"; };
 		A8345C8320F487A1002BB6AE /* JsWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JsWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8345C8620F487A1002BB6AE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A8345C8720F487A1002BB6AE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -98,6 +101,8 @@
 				A8345CA820F4AFD1002BB6AE /* GetIpHandler.m */,
 				A85BA89F20F59FA10027D44A /* GetPackageNameHandler.h */,
 				A85BA8A020F59FA10027D44A /* GetPackageNameHandler.m */,
+				A831E66820F6F7A8007029F1 /* DefaultHandler.h */,
+				A831E66920F6F7A8007029F1 /* DefaultHandler.m */,
 			);
 			path = JsFramework;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 				A85BA8A120F59FA10027D44A /* GetPackageNameHandler.m in Sources */,
 				A8345CA620F4AE94002BB6AE /* JsHandler.m in Sources */,
 				A8345C8820F487A1002BB6AE /* AppDelegate.m in Sources */,
+				A831E66A20F6F7A8007029F1 /* DefaultHandler.m in Sources */,
 				A8345CA120F48F2A002BB6AE /* WebViewInjector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

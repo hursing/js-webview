@@ -110,6 +110,7 @@ iOS和android的设计是一致的，只是使用语言和api不同。思路如�
   - 注入对象到对应的WebView
   - 统管所有的`handler`实例
   - 接收js传递过来的数据，接收到后，按照action，分派数据给对应的`handler`来处理
+3. 如果js调用了一个不支持的action，应有一个`DefaultHandler`回复`result`为`unsupported`。
 
 ## 客户端的实现
 ### ios的核心代码：
@@ -133,9 +134,10 @@ self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:c
     }
     NSString *action = body[@"action"];
     id<JsHandler> handler = s_jsHandlers[action];
-    if (handler) {
-        [handler handleJsFromWebView:self.webView info:body];
+    if (!handler) {
+        handler = [DefaultHandler sharedInstance];
     }
+    [handler handleJsFromWebView:self.webView info:body];
 }
 
 // JsHandler.m
@@ -174,9 +176,10 @@ public void postMessage(String jsonString) {
         JSONObject object = new JSONObject(jsonString);
         String action = object.getString("action");
         JsHandler handler = sHandlerMap.get(action);
-        if (handler != null) {
-            handler.handleJs(mWebView, object);
+        if (handler == null) {
+            handler = sDefaultHandler;
         }
+        handler.handleJs(mWebView, object);
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -223,5 +226,4 @@ android截图：
 ![android](img/android.png)
 
 ## 可以做得更多
-1. native添加一个默认的handler，如果没找到某个action的handler，则由它来处理，一般是直接回复一个错误信息
-2. js调用WebView时，设置一个超时时间，如果超过了都被调用callback，则认为失败
+1. js调用WebView时，设置一个超时时间，如果超过了都没调用callback，则认为失败

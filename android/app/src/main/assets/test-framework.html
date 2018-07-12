@@ -79,6 +79,18 @@
         document.getElementById('package_result').innerHTML = object.result;
       }
     }
+
+    function doGetUnsupported() {
+      var info = {
+        "action": "whatever",
+        "id": Math.random().toString(),
+        "callback": "getUnsupportedCallback"
+      }
+      callNative(info)
+    }
+    function getUnsupportedCallback(object) {
+      document.getElementById('unsupported_result').innerHTML = object.result;
+    }
   </script>
 </head>
 
@@ -90,6 +102,10 @@
   <input type="button" onclick="doGetPackageName()" value="获取程序包名" />
   <br>
   <p id="package_result">请点击获取获取程序包名，这里将显示结果</p>
+
+  <input type="button" onclick="doGetUnsupported()" value="调用不支持的action" />
+  <br>
+  <p id="unsupported_result">请点击调用不支持的action，这里将显示结果</p>
 </body>
 
 </html>
