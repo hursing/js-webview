@@ -221,3 +221,7 @@ ios截图：
 android截图：
 
 ![android](img/android.png)
+
+## 可以做得更多
+1. native添加一个默认的handler，如果没找到某个action的handler，则由它来处理，一般是直接回复一个错误信息
+2. js调用WebView时，设置一个超时时间，如果超过了都被调用callback，则认为失败
