@@ -12,32 +12,27 @@
 #import "GetPackageNameHandler.h"
 #import "DefaultHandler.h"
 
-NSMutableDictionary<NSString*, id<JsHandler>> *s_jsHandlers = nil;
-
-void addJsHandler(id<JsHandler> handler) {
-    [s_jsHandlers setObject:handler forKey:[handler action]];
-}
-
-void initHandlersIfNeed() {
-    if (!s_jsHandlers) {
-        s_jsHandlers = [[NSMutableDictionary alloc] initWithCapacity:10];
-        // 每种action都有自己的handler
-        addJsHandler(GetIpHandler.new);
-        addJsHandler(GetPackageNameHandler.new);
-    }
-}
-
 @interface WebViewInjector ()
 
 @property (nonatomic) WKWebView *webView;
+@property (nonatomic) NSMutableDictionary<NSString*, id<JsHandler>> *jsHandlers;
 
 @end
 
 @implementation WebViewInjector
 
+- (void)addJsHandler:(id<JsHandler>) handler {
+    [self.jsHandlers setObject:handler forKey:[handler action]];
+}
+
 - (void)injectToWebView:(WKWebView *)webView {
     self.webView = webView;
-    initHandlersIfNeed();
+    if (!self.jsHandlers) {
+        self.jsHandlers = [[NSMutableDictionary alloc] initWithCapacity:10];
+        // 每种action都有自己的handler
+        [self addJsHandler:GetIpHandler.new];
+        [self addJsHandler:GetPackageNameHandler.new];
+    }
 }
 
 #pragma mark - WKScriptMessageHandler methods
@@ -47,7 +42,7 @@ void initHandlersIfNeed() {
         return;
     }
     NSString *action = body[@"action"];
-    id<JsHandler> handler = s_jsHandlers[action];
+    id<JsHandler> handler = self.jsHandlers[action];
     if (!handler) {
         handler = [DefaultHandler sharedInstance];
     }
